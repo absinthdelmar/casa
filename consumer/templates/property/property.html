@@ -1,0 +1,521 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style type="text/css">
+body, html {
+    height: 100%;
+}
+.property {
+    /*font-family: 'Roboto Mono', monospace;*/
+}
+.property-buttons {
+    padding: 25px 0 25px 0;
+}
+.property-buttons button {
+    width: 100% !important;
+}
+.img-fluid {
+    width: 100%;
+}
+.carousel-indicators li {
+    height: 5px;
+}
+.breadcrumb {
+    background: none;
+    font-size: 90%;
+    padding-left: 0;
+}
+.card-contact {
+    background-color: #f1f1f1;
+}
+.modal-full {
+    width: 60%;
+    max-width: 60%;
+}
+/* description gradient */
+.description-gradient {
+    background-image: linear-gradient(hsla(0,0%,100%,.1),#fff);
+    bottom: 80px;
+    height: 80px;
+    margin-bottom: -80px;
+    position: relative;
+}
+/* make sticky-top work */
+.full-height {
+    height: 100%;
+}
+/* carousel controls gradient */
+.carousel-control-prev {
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.0001) 100%);
+    background-image: -o-linear-gradient(left, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.0001) 100%);
+    background-image: linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.0001) 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+}
+.carousel-control-next {
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0.0001) 0%, rgba(0,0,0,0.5) 100%);
+    background-image: -o-linear-gradient(left, rgba(0,0,0,0.0001) 0%, rgba(0,0,0,0.5) 100%);
+    background-image: linear-gradient(to right, rgba(0,0,0,0.0001) 0%, rgba(0,0,0,0.5) 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+}
+/* image counter / total */
+.carousel-counter {
+    position: absolute;
+    right: 0;
+    bottom: 30px;
+    left: 0;
+    z-index: 15;
+    display: flex;
+    justify-content: center;
+    opacity: 0.7;
+    font-size: 90%;
+}
+#galleryCarousel > .carousel-inner {
+    max-height: 500px;
+}
+#galleryModalCarousel > .carousel-inner {
+    max-height: 750px;
+}
+.photo {
+    background-repeat: no-repeat;
+    /*position: absolute;*/
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 750px;
+    background-position: center;
+    background-size: contain;
+    transition: transform .5s ease-out;
+}
+#myouter {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 500px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+}
+#myinner {
+    position: absolute;
+    width: 800px;
+    height: 1036px;
+    background: url("{% get_static_prefix %}download5-lg.jpg") no-repeat;
+}
+</style>
+{% endblock %}
+
+{% block bootstrap4_content %}
+<div class="modal modal-fade" tabindex="-1" role="dialog" id="galleryModal">
+
+    <div class="modal-dialog modal-full" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Property photos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="galleryModalCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-counter text-center">
+                        &nbsp;
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <figure>
+                                <img src="{% get_static_prefix %}download-lg.jpg" alt="123" class="img-fluid">
+                            </figure>
+                        </div>
+                        <div class="carousel-item">
+                            <figure>
+                                <img data-src="{% get_static_prefix %}download1-lg.jpg" alt="123" class="img-fluid">
+                            </figure>
+                        </div>
+                        <div class="carousel-item">
+                            <figure>
+                                <img data-src="{% get_static_prefix %}download2-lg.jpg" alt="123" class="img-fluid">
+                            </figure>
+                        </div>
+                        <div class="carousel-item">
+                            <figure>
+                                <img data-src="{% get_static_prefix %}download3-lg.jpg" alt="123" class="img-fluid">
+                            </figure>
+                        </div>
+                        <div class="carousel-item">
+                            <figure>
+                                <img data-src="{% get_static_prefix %}download4-lg.jpg" alt="123" class="img-fluid">
+                            </figure>
+                        </div>
+                        <div class="carousel-item">
+                            <figure>
+                                <img data-src="{% get_static_prefix %}download5-lg.jpg" alt="123" class="img-fluid">
+                            </figure>
+                        </div>
+                        <div class="carousel-item">
+                            <figure>
+                                <img data-src="{% get_static_prefix %}download6-lg.jpg" alt="123" class="img-fluid">
+                            </figure>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#galleryModalCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                    <a class="carousel-control-next" href="#galleryModalCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">Property page</h1>
+        <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
+    </div>
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Spain</a></li>
+        <li class="breadcrumb-item"><a href="#">Barcelona</a></li>
+        <li class="breadcrumb-item"><a href="#">Barcelones</a></li>
+        <li class="breadcrumb-item"><a href="#">Barcelona Capital</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Sant Gervasi i la Bonanova</li>
+      </ol>
+    </nav>
+
+    <div class="row property">
+        <div class="col-lg-8 col-sm-12">
+
+            <div class="row">
+                <div class="col"><h3>Flat in Sant Gervasi i la Bonanova</h3></div>
+            </div>
+
+            <div class="row">
+                <div class="col"><i class="fa fa-bed"></i> 5 bedrooms</div>
+                <div class="col"><i class="fa fa-bath"></i> 4 bathrooms</div>
+                <div class="col"><i class="fa fa-vector-square"></i> 190 sqm</div>
+                <div class="col"><i class="fa fa-building"></i> 8th floor</div>
+                <div class="col"><h5>17&nbsp;&euro;/m<sup>2</sup></h5></div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div id="galleryCarousel" class="carousel slide" data-ride="carousel">
+                        <!--
+                        <ol class="carousel-indicators">
+                            <li data-target="#galleryCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#galleryCarousel" data-slide-to="1"></li>
+                            <li data-target="#galleryCarousel" data-slide-to="2"></li>
+                        </ol>
+                        -->
+                        <div class="carousel-counter text-center">
+                            &nbsp;
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <figure>
+                                    <img src="{% get_static_prefix %}download.jpg" alt="123" class="img-fluid">
+                                </figure>
+                            </div>
+                            <div class="carousel-item">
+                                <figure>
+                                    <img data-src="{% get_static_prefix %}download1.jpg" alt="123" class="img-fluid">
+                                </figure>
+                            </div>
+                            <div class="carousel-item">
+                                <figure>
+                                    <img data-src="{% get_static_prefix %}download2.jpg" alt="123" class="img-fluid">
+                                </figure>
+                            </div>
+                            <div class="carousel-item">
+                                <figure>
+                                    <img data-src="{% get_static_prefix %}download3.jpg" alt="123" class="img-fluid">
+                                </figure>
+                            </div>
+                            <div class="carousel-item">
+                                <figure>
+                                    <img data-src="{% get_static_prefix %}download4.jpg" alt="123" class="img-fluid">
+                                </figure>
+                            </div>
+                            <div class="carousel-item">
+                                <figure>
+                                    <img data-src="{% get_static_prefix %}download5.jpg" alt="123" class="img-fluid">
+                                </figure>
+                            </div>
+                            <div class="carousel-item">
+                                <figure>
+                                    <img data-src="{% get_static_prefix %}download6.jpg" alt="123" class="img-fluid">
+                                </figure>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#galleryCarousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                          </a>
+                        <a class="carousel-control-next" href="#galleryCarousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row property-buttons">
+                <div class="col">
+                    <button class="btn btn-dark"><i class="far fa-heart"></i> Add to favorites</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-dark"><i class="far fa-flag"></i> Report</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-3">
+                    <p><strong>Main features:</strong></p>
+                </div>
+                <div class="col-9">
+                    <ul class="list-unstyled">
+                        <li>Type of property: Piso</li>
+                        <li>Floor: 8a planta</li>
+                        <li>Status: almost new</li>
+                        <li>Age of property: 30-50 years</li>
+                        <li>Heating: natural gas</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-3">
+                    <p><strong>Extras:</strong></p>
+                </div>
+                <div class="col-9">
+                    <!-- Amenities, tags -->
+                    <span class="badge badge-secondary">Air conditioning</span>
+                    <span class="badge badge-secondary">Private garage</span>
+                    <span class="badge badge-secondary">Terrace</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-3">
+                    <p><strong>Description:</strong></p>
+                </div>
+                <div class="col-9">
+                    Gran piso esquinero, situado en la octava planta de un bonito edificio de ladrillo visto,
+                        en uno de los mejores barrios de la ciudad, Bonanova. Este apartamento dispone de 5 dormitorios,
+                        distribuidos entre la zona de noche habitación de invitados y servicio. Desde la entrada
+                        principal se accede a un recibidor que divide estas tres zonas. Por una parte encontramos
+                        un gran salón comedor con una amplia terraza, orientados a sur y muy soleados. Dispone de
+                        una gran librería que podría pintarse de otro color.
+                        <div class="description-gradient"></div>
+                        <span class="collapse" id="details">
+                        Desde el salón se accede a una amplia
+                        suite exterior con zona de armario empotrado y un baño recién reformado con bañera, ideal para
+                        invitados. También se accede a la cocina, también reformada, con zona office y equipada con
+                        electrodomésticos, y amplio lavadero. En la zona de noche encontramos 3 amplios dormitorios.
+                        Uno de ellos es una amplia suite con un baño reformado con ducha; los otros dos son dobles y
+                        uno tiene salida a una amplia terraza orientada a Tibidabo. Estos dos tienen las paredes
+                        forradas de corcho, ideal para adolescentes, aunque podría retirarse. En esta zona se encuentra
+                        también otro baño reformado con bañera. En la zona de servicio hay una habitación individual y
+                        un baño también reformado con ducha, junto a la entrada de servicio, desde donde se accede a la
+                        escalera y al montacargas. El suelo es de parquet en toda la vivienda, dispone de calefacción
+                        de gas y tiene aire acondicionado en el salón. Se alquila sin muebles, pero la propiedad puede
+                        dejar algo del mobiliario que se ve en las fotos, muebles clásicos de gran calidad. También
+                        podrían retirarse los electrodomésticos. Es posible alquilar adicionalmente dos plazas de
+                        aparcamiento contiguas en la misma finca. El edificio dispone de servicio de conserjería de
+                        lunes a viernes y el parking esta vigilado las 24 horas. Esta vivienda está ya disponible
+                        para visitas. Vivienda situada en una tranquila calle de la prestigiosa zona de Bonanova,
+                        conocida por sus colegios de gran prestigio, a un paso de Pa
+                        </span><a href="#details" data-toggle="collapse" target="#details">Read more...</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <p class="text-dark">Approximate property location</p>
+                    <div class="border text-center" style="height: 400px"></div>
+                    <p class="text-muted">
+                        <small>
+                            Schibsted Classified Media Spain, S.L. shall not be held liable for errors that may be
+                            contained in the information displayed below. Position on the map could be approximate
+                            by advertiser's wish. The user will be held responsible for the use that he/she makes
+                            of this information.
+                        </small>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-4 col-sm-12">
+
+            <div class="row">
+                <div class="col">
+                    <h2 class="text-success text-right">800&nbsp;&euro;&nbsp;<small>/month</small></h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <p class="text-right">Has been reduced 800&euro;</p>
+                </div>
+            </div>
+
+            <div class="row full-height">
+                <div class="col">
+                    <div class="card card-contact sticky-top">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h4 align="center">Contact now!</h4>
+                            </div>
+                            <div class="card-subtitle">
+                                <h6 class="pt-3 pb-3" align="center">ENGEL &amp; VOELKERS</h6>
+                            </div>
+                            <form class="card-text" action="{% url 'property_contact' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="id" value="12">
+                                <div class="form-group">
+                                    <textarea class="form-control overflow-auto" rows="5">I'd like to receive more information about this property</textarea>
+                                </div>
+                                <button type="submit" class="btn btn-lg btn-danger col">Contact</button>
+                            </form>
+                            <p></p>
+                            <div class="card-title">
+                                <h4 class="pt-3 pb-3" align="center"><i class="fa fa-phone"></i> 935 433 386</h4>
+                                <p class="small">
+                                   Contact: Jordi Perdi<br>
+                                   Reference: I-00IAZX-W-02BSNJ
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="myouter">
+        <div id="myinner"></div>
+    </div>
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Spain</a></li>
+        <li class="breadcrumb-item"><a href="#">Barcelona</a></li>
+        <li class="breadcrumb-item"><a href="#">Barcelones</a></li>
+        <li class="breadcrumb-item"><a href="#">Barcelona Capital</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Sant Gervasi i la Bonanova</li>
+      </ol>
+    </nav>
+
+</div>
+{% endblock %}
+
+{% block bootstrap4_extra_script %}
+<script type="text/javascript" src="{% get_static_prefix %}js/viewpane.js"></script>
+<script type="text/javascript">
+$(function(){
+    $(".collapse").on("show.bs.collapse", function(ev){
+        $(".description-gradient").remove();
+        $("a[data-toggle=collapse]").remove();
+    });
+    function updateCounter(parent) {
+        var el = parent.find(".carousel-counter");
+        var total = parent.find(".carousel-inner > .carousel-item").length;
+        var current = parent.find(".carousel-inner > .carousel-item.active").index() + 1;
+        el.empty()
+            .append(
+                $("<span>").addClass("text-white bg-dark p-2")
+                    .append($("<i>").addClass("fal fa-camera-retro"))
+                    .append($("<span>").text(" " + current + " / " + total))
+            );
+    }
+    /* Small thumbnails gallery */
+    $("#galleryCarousel.carousel").carousel({
+        'interval': false
+    }).on("slide.bs.carousel", function(ev){
+        /* Carousel lazy image loading on sliding */
+        var lazy;
+        lazy = $(ev.relatedTarget).find("img[data-src]");
+        lazy.attr("src", lazy.data('src'));
+        lazy.removeAttr("data-src");
+    }).on("slid.bs.carousel", function(ev){
+        updateCounter($("#galleryCarousel"));
+    });
+    $("#galleryCarousel .carousel-item").on("click", function(ev){
+        var index = $(ev.target).parent().parent().index();
+        console.log(index);
+        $("#galleryModalCarousel").carousel(index);
+        $("#galleryModal").modal("show");
+    });
+    /* Full screen modal gallery */
+    $("#galleryModalCarousel.carousel").carousel({
+        'interval': false
+    }).on("slide.bs.carousel", function(ev){
+        /* Carousel lazy image loading on sliding */
+        var lazy;
+        lazy = $(ev.relatedTarget).find("img[data-src]");
+        lazy.attr("src", lazy.data('src'));
+        lazy.removeAttr("data-src");
+    }).on("slid.bs.carousel", function(ev){
+        updateCounter($("#galleryModalCarousel"));
+    });
+    updateCounter($("#galleryCarousel"));
+    updateCounter($("#galleryModalCarousel"));
+
+    /*
+    $(".carousel-item").each(function(){
+        if ($(this).attr("data-src") !== "undefined") {
+            $(this).append('<div class="photo"></div>')
+                .children(".photo")
+                .css({
+                    "background-image": "url('" + $(this).data("src") + "')"
+                });
+        }
+    }).on("mousemove", function(e){
+        $(this).children('.photo').css({
+            'transform-origin': ((e.pageX - $(this).offset().left) / $(this).width()) * 100 + '% ' +
+            ((e.pageY - $(this).offset().top) / $(this).height()) * 100 +'%'
+        });
+    }).on('mouseover', function(){
+      $(this).children('.photo').css({'transform': 'scale('+ $(this).attr('data-scale') +')'});
+    }).on('mouseout', function(){
+      $(this).children('.photo').css({'transform': 'scale(1)'});
+    });
+    */
+
+    /*
+    $(".carousel-item").each(function() {
+        if ($(this).attr("data-src") !== "undefined") {
+            var index = $(this).index();
+            $(this).append('<div id="photo' + index + '" class="photo"></div>')
+                .attr("id", "outer" + index)
+                .children(".photo")
+                .css({
+                    "position": "absolute",
+                    "top": 0,
+                    "left": 0,
+                    "width": "800px",
+                    "height": "1036px",
+                    "background": "url('" + $(this).data("src") + "') no-repeat"
+                });
+            var viewpane = new Viewpane("outer" + index, "photo" + index, {});
+            viewpane.setPosition(Viewpane.Vector.create(0, 0, 0));
+            viewpane.repaint();
+        }
+    });
+    */
+
+    var viewpane = new Viewpane("myouter", "myinner", {});
+    viewpane.setPosition(Viewpane.Vector.create(0, 0, 0));
+    viewpane.repaint();
+
+});
+</script>
+{% endblock %}
